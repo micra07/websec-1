@@ -78,14 +78,26 @@ function setResult(result) {
 }
 
 function showErrorMessage(element, message) {
-    element.classList.add('input-error');
-    element.setAttribute('title', message);
+    element.classList.add('error-highlight');
+    
+    const errorBox = document.getElementById('error-message');
+    const errorText = document.querySelector('.error-text');
+    
+    if (errorBox && errorText) {
+        errorText.textContent = message;
+        errorBox.classList.add('show');
+    }
+    
     console.warn(`Ошибка: ${message}`);
 }
 
 function clearAllErrors() {
     document.querySelectorAll('.input-number').forEach(el => {
         el.classList.remove('input-error');
-        el.removeAttribute('title');
     });
+
+    const errorBox = document.getElementById('error-message');
+    if (errorBox) {
+        errorBox.classList.remove('show');
+    }
 }
