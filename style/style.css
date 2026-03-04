@@ -3,13 +3,42 @@
     box-sizing: border-box;
 }
 
-body {
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
     margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+input {
+    padding: 0;
+    padding-block: 0;
+    padding-inline: 0;
+}
+
+select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+p {
+    margin: 0;
+}
+
+.roboto-500 {
     font-family: "Roboto", sans-serif;
-    display: flex;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-variation-settings:
+    "wdth" 100;
 }
 
 :root {
@@ -20,10 +49,11 @@ body {
 }
 
 .main-container {
+    margin: 0 auto;
     margin-top: 60px;
-    padding: 10px;
+    padding: 0 10px 10px 10px;
+    height: fit-content;
     max-width: 700px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: var(--main-background-color);
@@ -32,54 +62,132 @@ body {
 .top-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
     height: 100px;
+    margin-top: -10px;
 }
 
 .input-number {
     flex: 1;
-    font-size: 24px;
+    max-width: 250px;
+    height: 40%;
+    font-size: 27px;
+    background-color: inherit;
+    padding: 0 10px;
     border: none;
     outline: var(--main-border);
     color: var(--main-font-color);
-    text-align: center;
+}
+
+.input-number.error-highlight {
+    background-color: #ffcccc;
+    outline: 3px solid #ff0000;
 }
 
 .select-operation {
     flex: 1;
-    font-size: 24px;
+    cursor: pointer;
+    font-size: 25px;
+    color: var(--main-font-color);
     border: none;
     outline: var(--main-border);
-    color: var(--main-font-color);
+    background-color: inherit;
+    padding: 0 0 0 20px;
+    text-align: left;
     max-width: 100px;
+    height: 40%;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position-x: 80%;
+    background-position-y: 70%;
 }
 
 .bottom-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    height: 220px;
+    justify-content: space-around;
 }
 
 .calc-result {
+    cursor: pointer;
     width: 30%;
     height: 40px;
-    font-size: 20px;
     border: none;
     outline: var(--main-border);
+    background-color: inherit;
+    font-size: 24px;
     color: var(--main-font-color);
-    background: transparent;
-    cursor: pointer;
+    transition: all .5s ease-in-out;
+}
+
+.calc-result:hover {
+    background: var(--main-border-color);
 }
 
 .result-container {
-    width: 100%;
+    --padding-size: 10px;
+    width: calc(100% - 2* var(--padding-size));
+    height: fit-content;
     min-height: 100px;
     border: var(--main-border);
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    font-size: 24px;
+    background-color: inherit;
+    font-size: 27px;
     color: var(--main-font-color);
+    display: flex;
+    justify-content: center;
+    padding-left: var(--padding-size);
+    margin: 0;
+    flex-direction: column;
+}
+
+.prev-result {
+    color: var(--main-font-color);
+    filter: opacity(0.65);
+    margin-bottom: 9px;
+}
+
+.curr-result {
+    color: var(--main-font-color);
+}
+
+@media (max-width: 750px) {
+    .main-container {
+        padding: 10px;
+    }
+
+    .top-content {
+        flex-direction: column;
+        height: 250px;
+        margin: 0;
+    }
+
+    .input-number {
+        max-width: initial;
+        width: calc(100% - 20px);
+        padding: 0 10px;
+        max-height: 25%;
+    }
+
+    .select-operation {
+        flex: initial;
+        width: 100px;
+        height: 25%;
+        background-position-y: 60%;
+    }
+
+    .calc-result {
+        width: 50%;
+    }
+
+    .bottom-content {
+        margin-top: 20px;
+    }
+
+    .result-container {
+        text-align: center;
+        font-size: 30px;
+    }
 }
