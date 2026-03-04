@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор</title>
+    <link rel="stylesheet" href="style/test.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="main-container">
+        <div class="top-content">
+            <input type="number" id="first-number" class="input-number" placeholder="0">
+            <select id="operation" class="select-operation">
+                <option value="+">+</option>
+                <option value="-">−</option>
+                <option value="*">×</option>
+                <option value="/">÷</option>
+                <option value="%">%</option>
+                <option value="^">^</option>
+            </select>
+            <input type="number" id="second-number" class="input-number" placeholder="0">
+        </div>
+        <div class="bottom-content">
+            <button id="calc-btn" class="calc-result">подсчитать</button>
+            <div class="result-container">
+                <div id="prev-result" class="prev-result"></div>
+                <div id="curr-result" class="curr-result"></div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/test.js"></script>
+</body>
+</html>
