@@ -143,6 +143,18 @@ p {
     flex-direction: column;
 }
 
+.prev-result, .curr-result {
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    padding: 5px;
+    border-radius: 8px;
+}
+
+.prev-result:hover, .curr-result:hover {
+    opacity: 0.8;
+    background-color: rgba(244, 42, 31, 0.1);
+}
+
 .prev-result {
     color: var(--main-font-color);
     filter: opacity(0.65);
