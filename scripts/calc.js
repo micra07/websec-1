@@ -3,10 +3,75 @@ document.addEventListener('DOMContentLoaded', () => {
     calcButton && calcButton.addEventListener('click', onClickHandler);
     
     const prevResultElem = document.querySelector(".prev-result");
-    if (prevResultElem && window.localStorage && window.localStorage.getItem('previousResult')) {
-        prevResultElem.innerHTML = window.localStorage.getItem('previousResult');
+    if (prevResultElem) {
+        prevResultElem.innerHTML = 'история пуста';
+    }
+    if (prevResultElem) {
+        prevResultElem.addEventListener('click', onHistoryClick);
     }
 });
+
+function addHistoryClickHandlers() {
+    const prevResultElem = document.querySelector(".prev-result");
+    const currResultElem = document.querySelector(".curr-result");
+
+    if (prevResultElem) {
+        prevResultElem.addEventListener('click', () => handleHistoryClick(prevResultElem));
+    }
+    if (currResultElem) {
+        currResultElem.addEventListener('click', () => handleHistoryClick(currResultElem));
+    }
+}
+
+function handleHistoryClick(element) {
+    if (!element || !element.innerHTML) return;
+    
+    const historyItem = element.innerHTML;
+    const parsed = parseHistoryItem(historyItem);
+    
+    if (parsed) {
+        const { num1, num2, operation } = parsed;
+        
+        const firstNumElem = document.querySelector("#first-number");
+        const secondNumElem = document.querySelector("#second-number");
+        const operationElem = document.querySelector(".select-operation");
+        
+        if (firstNumElem && secondNumElem && operationElem) {
+            firstNumElem.value = num1;
+            secondNumElem.value = num2;
+            
+            const options = operationElem.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].value === operation) {
+                    operationElem.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            clearAllErrors();
+        }
+    }
+}
+
+function parseHistoryItem(historyItem) {
+    try {
+        const equation = historyItem.split('=')[0].trim();
+        const parts = equation.split(' ');
+        
+        if (parts.length >= 3) {
+            const num1 = parseFloat(parts[0]);
+            const operation = parts[1];
+            const num2 = parseFloat(parts[2]);
+            
+            if (!isNaN(num1) && !isNaN(num2)) {
+                return { num1, num2, operation };
+            }
+        }
+    } catch (e) {
+        console.warn('Ошибка:', e);
+    }
+    return null;
+}
 
 function onClickHandler() {
     const firstNumElem = document.querySelector("#first-number");
@@ -74,6 +139,8 @@ function setResult(result) {
         }
         currResultElem.innerHTML = result;
         window.localStorage && window.localStorage.setItem('previousResult', result);
+        
+        addHistoryClickHandlers();
     }
 }
 
@@ -93,7 +160,7 @@ function showErrorMessage(element, message) {
 
 function clearAllErrors() {
     document.querySelectorAll('.input-number').forEach(el => {
-        el.classList.remove('input-error');
+        el.classList.remove('error-highlight');
     });
 
     const errorBox = document.getElementById('error-message');
